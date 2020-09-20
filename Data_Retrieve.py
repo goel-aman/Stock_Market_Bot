@@ -50,3 +50,9 @@ time.sleep(5)
 window_after = web.window_handles[0]
 web.switch_to.window(window_after)
 
+no_of_rows = len(web.find_elements_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr'))
+
+no_of_cols = len(web.find_elements_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr[1]/th'))
+
+print(no_of_rows)
+print(no_of_cols)
