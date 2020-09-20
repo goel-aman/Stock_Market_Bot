@@ -9,17 +9,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 time.sleep(4)
 
-
-
-
 from_day = "02"
 from_month = "Jan";
 from_year = "2020"
-to_day = "8"
+to_day = "08"
 to_month = "Feb"
 to_year = "2020"
 
-company = "Reliance Industries"
+company = "Reliance Industries "
 
 FromDate = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[7]/div[2]/div[6]/table/tbody/tr/td[1]/form/div[2]/select[1]')
 FromDate.send_keys(from_day)
@@ -53,11 +50,8 @@ window_after = web.window_handles[0]
 web.switch_to.window(window_after)
 
 no_of_rows = len(web.find_elements_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr'))
-
 no_of_cols = len(web.find_elements_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr[1]/th'))
 
-print(no_of_rows)
-print(no_of_cols)
 dataset = []
 
 for row in range(3,no_of_rows + 1):
@@ -66,8 +60,6 @@ for row in range(3,no_of_rows + 1):
         value = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr[' + str(row) + ']/td[' + str(column) + ']').text
         datasetrow.append(value)
     dataset.append(datasetrow)
-
-print(dataset)
 
 dict_dataset = {'Date': [], 'Open' : [], 'High' : [], 'Low': [], 'Close': [], 'Volume': [],'High-Low': [], 'Open-Close': []}
 
