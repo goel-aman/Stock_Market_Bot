@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company):
     web = webdriver.Chrome()
     web.get('https://www.moneycontrol.com/stocks/histstock.php')
@@ -69,14 +68,13 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
 dummy data to dry run the code.
 """
 ################################################################################
-from_day = "02"
-from_month = "Jan";
-from_year = "2020"
-to_day = "08"
-to_month = "Feb"
-to_year = "2020"
-company = "Reliance Industries "
+# from_day = "02"
+# from_month = "Jan";
+# from_year = "2020"
+# to_day = "08"
+# to_month = "Feb"
+# to_year = "2020"
+# company = "Reliance Industries "
 ################################# End Of Dummy Data #############################
-
-m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
-print(m)
+# m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
+# print(m)
