@@ -1,4 +1,6 @@
 from selenium import webdriver
+import pandas as pd
+from pandas import DataFrame
 web = webdriver.Chrome()
 web.get('https://www.moneycontrol.com/stocks/histstock.php')
 import time
@@ -14,7 +16,7 @@ from_day = "02"
 from_month = "Jan";
 from_year = "2020"
 to_day = "8"
-to_month = "Sep"
+to_month = "Feb"
 to_year = "2020"
 
 company = "Reliance Industries"
@@ -56,3 +58,24 @@ no_of_cols = len(web.find_elements_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/di
 
 print(no_of_rows)
 print(no_of_cols)
+dataset = []
+
+for row in range(3,no_of_rows + 1):
+    datasetrow = []
+    for column in range(1,no_of_cols + 2):
+        value = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[6]/div[4]/table/tbody/tr[' + str(row) + ']/td[' + str(column) + ']').text
+        datasetrow.append(value)
+    dataset.append(datasetrow)
+
+print(dataset)
+
+dict_dataset = {'Date': [], 'Open' : [], 'High' : [], 'Low': [], 'Close': [], 'Volume': [],'High-Low': [], 'Open-Close': []}
+
+column_name = ['Date', 'Open','High','Low','Close','Volume','High-Low','Open-Close']
+
+for i in range(0,len(dataset)):
+    for j in range(0,no_of_cols  +1):
+        dict_dataset[column_name[j]].append(dataset[i][j])
+
+df = pd.DataFrame(dict_dataset)
+print(df)
