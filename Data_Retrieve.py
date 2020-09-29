@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company):
     web = webdriver.Chrome()
     web.get('https://www.moneycontrol.com/stocks/histstock.php')
-    time.sleep(5)
+    time.sleep(6)
     FromDate = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[7]/div[2]/div[6]/table/tbody/tr/td[1]/form/div[2]/select[1]')
     FromDate.send_keys(from_day)
 
@@ -31,12 +31,14 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
 
     Company = web.find_element_by_xpath('//*[@id="mycomp"]')
     Company.send_keys(company)
-    time.sleep(5)
+    time.sleep(10)
+    Company.send_keys(" ");
+    time.sleep(2)
     web.find_element_by_xpath('//*[@id="suggest"]/ul/li[1]/a').click()
-    time.sleep(3)
+    time.sleep(6)
     Go = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[7]/div[2]/div[6]/table/tbody/tr/td[1]/form/div[4]/input[1]')
     Go.click()
-    time.sleep(5)
+    time.sleep(6)
 
     window_after = web.window_handles[0]
     web.switch_to.window(window_after)
@@ -62,19 +64,30 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
             dict_dataset[column_name[j]].append(dataset[i][j])
 
     df = pd.DataFrame(dict_dataset)
+    df['Open'] = df['Open'].astype(float)
+    df['High'] = df['High'].astype(float)
+    df['Low'] = df['Low'].astype(float)
+    df['Close'] = df['Close'].astype(float)
+    df['Volume'] = df['Volume'].astype(float)
+    df['High-Low'] = df['High-Low'].astype(float)
+    df['Open-Close'] = df['Open-Close'].astype(float)
+    df['Date'] = pd.to_datetime(df['Date'])
+
     return df
 
 """
 dummy data to dry run the code.
 """
-################################################################################
-# from_day = "02"
-# from_month = "Jan";
-# from_year = "2020"
-# to_day = "08"
-# to_month = "Feb"
-# to_year = "2020"
-# company = "Reliance Industries "
-################################# End Of Dummy Data #############################
-# m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
-# print(m)
+###############################################################################
+from_day = "01"
+from_month = "Aug";
+from_year = "2020"
+to_day = "29"
+to_month = "Sep"
+to_year = "2020"
+company = "Hero Motocorp"
+################################ End Of Dummy Data #############################
+m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
+m.to_csv(company + '.csv')
+print(m)
+
