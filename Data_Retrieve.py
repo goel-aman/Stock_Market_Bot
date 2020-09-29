@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import date, timedelta
 
 def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company):
     web = webdriver.Chrome()
@@ -78,15 +79,20 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
 """
 dummy data to dry run the code.
 """
+
+today = date.today()
+current_date = today.strftime("%b%d%Y")  
+month_old_date = (date.today()-timedelta(days=30)).strftime("%b%d%Y")
+print(month_old_date)
 ###############################################################################
-from_day = "01"
-from_month = "Aug";
-from_year = "2020"
-to_day = "29"
-to_month = "Sep"
-to_year = "2020"
+from_day = month_old_date[3:5]
+from_month = month_old_date[0:3]
+from_year = month_old_date[5:]
+to_day = current_date[3:5]
+to_month = current_date[0:3]
+to_year = current_date[5:]
 company = "Hero Motocorp"
-################################ End Of Dummy Data #############################
+# ################################ End Of Dummy Data #############################
 m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
 m.to_csv(company + '.csv')
 print(m)
