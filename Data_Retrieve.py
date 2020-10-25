@@ -36,7 +36,7 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
     Company.send_keys(" ");
     time.sleep(2)
     web.find_element_by_xpath('//*[@id="suggest"]/ul/li[1]/a').click()
-    time.sleep(6)
+    time.sleep(6) 
     Go = web.find_element_by_xpath('//*[@id="mc_mainWrapper"]/div[3]/div[1]/div[7]/div[2]/div[6]/table/tbody/tr/td[1]/form/div[4]/input[1]')
     Go.click()
     time.sleep(6)
@@ -72,7 +72,7 @@ def Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
     df['Volume'] = df['Volume'].astype(float)
     df['High-Low'] = df['High-Low'].astype(float)
     df['Open-Close'] = df['Open-Close'].astype(float)
-    df['Date'] = pd.to_datetime(df['Date'])
+    # df['Date'] = pd.to_datetime(df['Date'])
 
     return df
 
@@ -82,7 +82,7 @@ dummy data to dry run the code.
 
 today = date.today()
 current_date = today.strftime("%b%d%Y")  
-month_old_date = (date.today()-timedelta(days=30)).strftime("%b%d%Y")
+month_old_date = (date.today()-timedelta(days=150)).strftime("%b%d%Y")
 print(month_old_date)
 ###############################################################################
 from_day = month_old_date[3:5]
@@ -96,4 +96,3 @@ company = "Hero Motocorp"
 m = Stock_Dataset(from_day,from_month,from_year,to_day,to_month,to_year,company)
 m.to_csv(company + '.csv')
 print(m)
-
